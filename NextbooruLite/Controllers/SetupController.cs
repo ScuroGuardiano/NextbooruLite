@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NextbooruLite.Auth.Dto;
 using NextbooruLite.Auth.Services;
 using NextbooruLite.Dto;
+using NextbooruLite.Dto.Responses;
 using NextbooruLite.Swagger;
 using Swashbuckle.AspNetCore.Annotations;
 

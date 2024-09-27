@@ -64,6 +64,17 @@ public class AuthController : ControllerBase
         return Created("session", session);
     }
 
+    [HttpDelete("destroy-session")]
+    [SwaggerOperation(Summary = "Invalidates session of currently logged in user without deleting cookie")]
+    [SwaggerResponse(204, "Session has been invalidated")]
+    [SwaggerUnauthorizedResponse]
+    public async Task<ActionResult> DestroySession()
+    {
+        await _sessionService.InvalidateCurrentSessionAsync();
+        return NoContent();
+    }
+    
+    
     [HttpDelete("logout")]
     [SwaggerOperation(Summary = "Signs out the user, deleting the cookie and invalidating the session")]
     [SwaggerResponse(204, "User has been logged out")]

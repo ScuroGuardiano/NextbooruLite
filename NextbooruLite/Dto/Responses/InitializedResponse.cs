@@ -1,4 +1,4 @@
-namespace NextbooruLite.Dto;
+namespace NextbooruLite.Dto.Responses;
 
 public class InitializedResponse
 {

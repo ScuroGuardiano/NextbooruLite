@@ -8,6 +8,7 @@ using NextbooruLite.Configuration;
 using Serilog;
 using NextbooruLite.Environment;
 using NextbooruLite.Filters;
+using NextbooruLite.Services;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -65,6 +66,13 @@ builder.Services.AddNextbooruAuthorization();
 
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddFluentValidationAutoValidation();
+
+builder.Services.AddScoped<IImageDtoMapper, ImageDtoMapper>();
+builder.Services.AddScoped<IImageConvertionService, ImageConvertionService>();
+builder.Services.AddSingleton<IImageUrlService, ImageUrlService>();
+builder.Services.AddSingleton<IMediaStore, LocalMediaStore>(); 
+builder.Services.AddScoped<ITagService, TagService>();
+builder.Services.AddScoped<IUploadService, UploadService>();
 
 builder.Services.AddControllers(options =>
 {
@@ -124,6 +132,9 @@ app.MapControllers();
 
 try
 { 
+    NextbooruOptions opts = app.Services.GetRequiredService<IOptions<NextbooruOptions>>().Value;
+    Log.Logger.Information("AllowedExtetions: {AllowedExtetions}", opts.AllowedUploadExtensions);
+    
     app.Run();
 }
 catch (Exception ex)

@@ -1,6 +1,58 @@
 @NextbooruLite_HostAddress = http://localhost:5223
 
-GET {{NextbooruLite_HostAddress}}/weatherforecast/
+# @name GetInitializedStatus
+GET {{NextbooruLite_HostAddress}}/api/setup/initialized
 Accept: application/json
 
 ###
+# @name SetupInitialUserTooShortPassword
+POST {{NextbooruLite_HostAddress}}/api/setup/initial-user
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "1"
+}
+
+###
+# @name SetupInitialUserWrongUsername
+POST {{NextbooruLite_HostAddress}}/api/setup/initial-user
+Content-Type: application/json
+
+{
+  "username": "__admin",
+  "password": "GoodStrongPassword(NotReally)"
+}
+
+###
+# @name SetupInitialUser
+POST {{NextbooruLite_HostAddress}}/api/setup/initial-user
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "zaq1@WSX"
+}
+
+###
+# @name Login
+POST {{NextbooruLite_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "zaq1@WSX"
+}
+
+###
+# @name GetSession
+GET {{NextbooruLite_HostAddress}}/api/auth/session
+Accept: application/json
+
+###
+# @name Logout
+DELETE {{NextbooruLite_HostAddress}}/api/auth/logout
+
+###
+# @name InvalidateSession
+DELETE {{NextbooruLite_HostAddress}}/api/auth/destroy-session
