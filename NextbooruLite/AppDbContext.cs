@@ -34,6 +34,44 @@ public sealed class AppDbContext : DbContext
       base.OnModelCreating(modelBuilder);
       
       ConfigureBaseEntities(modelBuilder);
+      
+      modelBuilder.Entity<Image>()
+         .HasOne(i => i.UploadedBy)
+         .WithMany()
+         .HasForeignKey(i => i.UploadedById)
+         .IsRequired();
+      
+      modelBuilder.Entity<Image>()
+         .HasIndex(i => i.UploadedById)
+         .IsUnique(false);
+      
+      modelBuilder.Entity<Image>()
+         .HasMany(i => i.Tags)
+         .WithMany(t => t.Images);
+      
+      modelBuilder.Entity<Image>()
+         .HasIndex(i => i.TagsArr)
+         .HasMethod("GIN");
+      
+      modelBuilder.Entity<ImageVariant>()
+         .HasOne(iv => iv.Image)
+         .WithMany(i => i.Variants)
+         .HasForeignKey(iv => iv.ImageId)
+         .IsRequired();
+      
+      modelBuilder.Entity<Tag>()
+         .HasIndex(t => t.Name)
+         .IsUnique();
+      
+      modelBuilder.Entity<Album>()
+         .HasMany(a => a.Images)
+         .WithMany(i => i.Albums);
+      
+      modelBuilder.Entity<Album>()
+         .HasOne(a => a.CreatedBy)
+         .WithMany()
+         .HasForeignKey(a => a.CreatedById)
+         .IsRequired();
    }
 
    private void OnEntityStateChanged(object? sender, EntityStateChangedEventArgs e)
