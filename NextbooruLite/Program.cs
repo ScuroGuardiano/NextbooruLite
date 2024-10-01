@@ -68,7 +68,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddFluentValidationAutoValidation();
 
 builder.Services.AddScoped<IImageDtoMapper, ImageDtoMapper>();
-builder.Services.AddScoped<IImageConvertionService, ImageConvertionService>();
+builder.Services.AddScoped<IImageConvertionService, SixLaborsConvertionService>();
 builder.Services.AddSingleton<IImageUrlService, ImageUrlService>();
 builder.Services.AddSingleton<IMediaStore, LocalMediaStore>(); 
 builder.Services.AddScoped<ITagService, TagService>();

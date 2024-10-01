@@ -11,6 +11,10 @@ public sealed class AppDbContext : DbContext
 {
    public DbSet<User> Users { get; set; } 
    public DbSet<Session> Sessions { get; set; }
+   public DbSet<Image> Images { get; set; }
+   public DbSet<ImageVariant> ImageVariants { get; set; }
+   public DbSet<Tag> Tags { get; set; }
+   public DbSet<Album> Albums { get; set; }
    
    private readonly DatabaseOptions _databaseOptions;
 

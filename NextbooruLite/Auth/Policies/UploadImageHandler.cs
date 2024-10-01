@@ -8,7 +8,7 @@ public class UploadImageHandler : AuthorizationHandler<UploadImageRequirement>
 {
     private readonly NextbooruOptions _nextbooruOptions;
 
-    public UploadImageHandler(IOptions<NextbooruOptions> options)
+    public UploadImageHandler(IOptionsSnapshot<NextbooruOptions> options)
     {
         _nextbooruOptions = options.Value;
     }

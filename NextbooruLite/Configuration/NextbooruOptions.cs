@@ -13,6 +13,8 @@ public class NextbooruOptions
     /// </summary>
     public bool AllowUserPublish { get; set; } = false;
 
+    public string MediaStoragePath { get; set; } = "./media";
+
     public List<string> AllowedUploadExtensions { get; set; } = [];
     
     public bool AllowConversion { get; set; } = true;

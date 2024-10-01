@@ -33,18 +33,14 @@ public class ConvertionResult
 public interface IImageConvertionService
 {
     public Task<ConvertionResult> ConvertImage(Stream input, Stream output, ImageConvertionOptions options);
+    
+    /// <summary>
+    /// This method breaks abstraction but for now I don't care. I may fix that later.
+    /// FIXME: This interface should be independent just like Unites States after declaring independence.
+    /// </summary>
+    /// <param name="input"></param>
+    /// <param name="output"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
     public Task<ConvertionResult> ConvertImage(SixLaborsImage input, Stream output, ImageConvertionOptions options);
-}
-
-public class ImageConvertionService : IImageConvertionService
-{
-    public Task<ConvertionResult> ConvertImage(Stream input, Stream output, ImageConvertionOptions options)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<ConvertionResult> ConvertImage(SixLaborsImage input, Stream output, ImageConvertionOptions options)
-    {
-        throw new NotImplementedException();
-    }
 }

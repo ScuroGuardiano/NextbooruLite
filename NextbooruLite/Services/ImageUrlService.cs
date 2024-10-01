@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Options;
+using NextbooruLite.Configuration;
 using NextbooruLite.Model;
 
 namespace NextbooruLite.Services;
@@ -11,18 +13,25 @@ public interface IImageUrlService
 
 public class ImageUrlService : IImageUrlService
 {
+    private readonly NextbooruOptions _options;
+
+    public ImageUrlService(IOptionsSnapshot<NextbooruOptions> options)
+    {
+        _options = options.Value;
+    }
+    
     public string GetImageUrl(Image image)
     {
-        throw new NotImplementedException();
+        return $"/api/images/{image.Id}.{image.Extension}";
     }
 
     public string? GetThumbnailImageUrl(Image image)
     {
-        throw new NotImplementedException();
+        return $"/api/images/{image.Id}/thumbnail.{_options.ThumbnailFormat}";
     }
 
     public string? GetPreviewImageUrl(Image image)
     {
-        throw new NotImplementedException();
+        return $"/api/images/{image.Id}/preview.{_options.PreviewFormat}";
     }
 }
