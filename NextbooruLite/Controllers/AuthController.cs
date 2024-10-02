@@ -13,6 +13,7 @@ namespace NextbooruLite.Controllers;
 [ApiController]
 [Route("auth")]
 [Authorize]
+[SwaggerTag("Authentication related endpoints")]
 public class AuthController : ControllerBase
 {
     private readonly UserService _userService;

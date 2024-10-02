@@ -63,6 +63,10 @@ public class UploadService : IUploadService
         _logger.LogDebug("Saved image to the store {MediaStoreType}, storeFileId {StoreFileId}", _mediaStore.GetType().FullName, storeFileId);
         
         var tags = await _tagService.GetOrAddTagsFromString(request.Tags);
+        foreach (var tag in tags)
+        {
+            tag.ImagesCount++;
+        }
 
         var image = new Image()
         {

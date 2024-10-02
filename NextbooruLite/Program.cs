@@ -132,9 +132,6 @@ app.MapControllers();
 
 try
 { 
-    NextbooruOptions opts = app.Services.GetRequiredService<IOptions<NextbooruOptions>>().Value;
-    Log.Logger.Information("AllowedExtetions: {AllowedExtetions}", opts.AllowedUploadExtensions);
-    
     app.Run();
 }
 catch (Exception ex)

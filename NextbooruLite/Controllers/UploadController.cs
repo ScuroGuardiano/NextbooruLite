@@ -7,11 +7,14 @@ using NextbooruLite.Auth.Services;
 using NextbooruLite.Dto.General;
 using NextbooruLite.Dto.Requests;
 using NextbooruLite.Services;
+using NextbooruLite.Swagger;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace NextbooruLite.Controllers;
 
 [ApiController]
 [Route("upload")]
+[SwaggerTag("Upload endpoints")]
 public class UploadController : ControllerBase
 {
     private readonly SessionService _sessionService;
@@ -31,6 +34,10 @@ public class UploadController : ControllerBase
     [Authorize(Policy = PolicyNames.UploadImage)]
     [HttpPost]
     [RequestSizeLimit(100L * 1024 * 1024)]
+    [SwaggerOperation(Summary = "Uploads an image")]
+    [SwaggerResponse(200, "Uploaded image", typeof(ImageDto))]
+    [SwaggerUnauthorizedResponse]
+    [SwaggerForbiddenResponse]
     public async Task<ImageDto> Upload([FromForm] UploadFileFormData formData)
     {
         var user = _sessionService.GetCurrentSessionFromHttpContext()?.User;

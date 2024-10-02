@@ -11,27 +11,23 @@ public interface IImageUrlService
     public string? GetPreviewImageUrl(Image image);
 }
 
+// This service will be rebuild but later XD
 public class ImageUrlService : IImageUrlService
 {
-    private readonly NextbooruOptions _options;
-
-    public ImageUrlService(IOptionsSnapshot<NextbooruOptions> options)
-    {
-        _options = options.Value;
-    }
-    
     public string GetImageUrl(Image image)
     {
-        return $"/api/images/{image.Id}.{image.Extension}";
+        return $"/api/images/{image.Id}{image.Extension}";
     }
 
     public string? GetThumbnailImageUrl(Image image)
     {
-        return $"/api/images/{image.Id}/thumbnail.{_options.ThumbnailFormat}";
+        var thumbnailVariant = image.Variants.FirstOrDefault(v => v.VariantMode == VariantMode.Thumbnail);
+        return thumbnailVariant is not null ? $"/api/images/{image.Id}/thumbnail{thumbnailVariant.Extension}" : null;
     }
 
     public string? GetPreviewImageUrl(Image image)
     {
-        return $"/api/images/{image.Id}/preview.{_options.PreviewFormat}";
+        var previewVariant = image.Variants.FirstOrDefault(v => v.VariantMode == VariantMode.Preview);
+        return previewVariant is not null ? $"/api/images/{image.Id}/preview{previewVariant.Extension}" : null;
     }
 }
