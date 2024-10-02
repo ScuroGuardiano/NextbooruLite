@@ -13,7 +13,12 @@ public static class PolicyNames
     public const string UploadImage = nameof(UploadImage);
     
     /// <summary>
-    /// Read policy decides if user is allowed to read the image
+    /// ViewAnyImage policy decides if user can view any image
+    /// </summary>
+    public const string ViewAnyImage = nameof(ViewAnyImage);
+    
+    /// <summary>
+    /// ViewImage policy decides if user is allowed to read the image
     /// </summary>
     public const string ViewImage = nameof(ViewImage);
     

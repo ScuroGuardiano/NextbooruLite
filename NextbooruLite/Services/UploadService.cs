@@ -1,9 +1,11 @@
+using System.Security.Claims;
 using Microsoft.Extensions.Options;
 using MimeTypes;
 using NextbooruLite.Auth.Model;
 using NextbooruLite.Configuration;
 using NextbooruLite.Dto.Requests;
 using NextbooruLite.Exceptions;
+using NextbooruLite.Helpers;
 using NextbooruLite.Model;
 using SixLabors.ImageSharp;
 using Image = NextbooruLite.Model.Image;
@@ -13,7 +15,7 @@ namespace NextbooruLite.Services;
 
 public interface IUploadService
 {
-    public Task<Image> UploadImage(UploadFileFormData request, User user);
+    public Task<Image> UploadImage(UploadFileFormData request, ClaimsPrincipal user);
 }
 
 public class UploadService : IUploadService
@@ -36,8 +38,9 @@ public class UploadService : IUploadService
         _options = options.Value;
     }
 
-    public async Task<Image> UploadImage(UploadFileFormData request, User user)
+    public async Task<Image> UploadImage(UploadFileFormData request, ClaimsPrincipal user)
     {
+        var userId = user.GetRequiredUserId();
         var extension = MimeTypeMap.GetExtension(request.File.ContentType, false);
 
         if (!_options.AllowedUploadExtensions.Contains(extension))
@@ -75,7 +78,7 @@ public class UploadService : IUploadService
             Source = request.Source,
             ContentType = request.File.ContentType,
             Extension = extension,
-            UploadedBy = user,
+            UploadedById = userId,
             Width = width,
             Height = height,
             SizeInBytes = size,

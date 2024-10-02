@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace NextbooruLite.Configuration;
 
 public class NextbooruOptions
@@ -19,6 +21,11 @@ public class NextbooruOptions
     
     public bool AllowConversion { get; set; } = true;
     public List<string> AllowedConversionFormats { get; set; } = [];
+    
+    [Range(1, int.MaxValue)]
+    public int DefaultResultsPerPage { get; set; } = 20;
+    [Range(1, int.MaxValue)]
+    public int MaxResultsPerPage { get; set; } = 100;
 
     public int ThumbnailWidth { get; set; } = 300;
     public int ThumbnailQuality { get; set; } = 65;

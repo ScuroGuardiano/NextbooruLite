@@ -13,6 +13,7 @@ public static class AuthorizationExtensions
         
         services.AddAuthorizationBuilder()
             .AddPolicy(PolicyNames.Admin, policy => policy.RequireRole(Role.Admin.ToString()))
+            .AddPolicy(PolicyNames.ViewAnyImage, policy => policy.RequireRole(Role.Admin.ToString()))
             .AddPolicy(PolicyNames.UploadImage, policy => policy.Requirements.Add(new UploadImageRequirement()))
             .AddPolicy(PolicyNames.PublishImage, policy => policy.Requirements.Add(new PublishImageRequirement()))
             .SetFallbackPolicy(new AuthorizationPolicyBuilder()
