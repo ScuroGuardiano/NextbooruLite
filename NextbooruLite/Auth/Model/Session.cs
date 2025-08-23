@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace NextbooruLite.Auth.Model;
 
+[EntityTypeConfiguration(typeof(SessionConfiguration))]
 public class Session
 {
     public Guid Id { get; set; }
